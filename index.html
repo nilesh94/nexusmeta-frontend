@@ -3,225 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MetaNexus | Intelligent Systems</title>
+    <title>MetaNexus | Enterprise Solutions</title>
     <style>
-        /* --- FUTURISTIC VARIABLES --- */
         :root {
-            --bg-dark: #050510;
-            --neon-blue: #00f3ff;
-            --neon-purple: #bc13fe;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #ffffff;
-            --text-dim: #a0a0b0;
+            --primary: #0047FF; /* International Tech Blue */
+            --dark: #0a0a0a;
+            --gray-light: #f5f5f7;
+            --gray-border: #e1e1e6;
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         
         body { 
-            background-color: var(--bg-dark); 
+            background-color: #ffffff; 
             color: var(--text-main); 
+            line-height: 1.5;
             overflow-x: hidden;
         }
 
-        /* --- DYNAMIC BACKGROUND ANIMATION --- */
-        .bg-animation {
+        /* --- TECH GRID BACKGROUND --- */
+        .grid-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(var(--gray-border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--gray-border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.3;
             z-index: -1;
-            background: radial-gradient(circle at 50% 50%, #1a1a3a 0%, #050510 100%);
-        }
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: float 10s infinite ease-in-out;
-        }
-        .orb-1 { width: 300px; height: 300px; background: var(--neon-purple); top: -50px; left: -50px; animation-delay: 0s; }
-        .orb-2 { width: 400px; height: 400px; background: var(--neon-blue); bottom: -100px; right: -100px; animation-delay: 5s; }
-
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            50% { transform: translate(30px, 50px); }
-            100% { transform: translate(0, 0); }
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
         }
 
-        /* --- GLASSMORPHISM UI --- */
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        
+        /* --- NAVIGATION --- */
         nav { 
-            padding: 25px 0; 
+            padding: 20px 40px; 
             display: flex; justify-content: space-between; align-items: center; 
-            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--gray-border);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
         }
         
         .logo { 
-            font-size: 1.8rem; font-weight: 800; letter-spacing: 1px;
-            background: linear-gradient(to right, #fff, var(--neon-blue));
+            font-size: 1.25rem; font-weight: 700; color: var(--dark); letter-spacing: -0.5px; 
+            display: flex; align-items: center; gap: 8px;
+        }
+        
+        .logo::before {
+            content: ''; display: block; width: 12px; height: 12px; background: var(--primary); border-radius: 2px;
+        }
+
+        .contact-link {
+            font-size: 0.9rem; font-weight: 500; color: var(--text-main); text-decoration: none;
+            transition: color 0.2s;
+        }
+        .contact-link:hover { color: var(--primary); }
+
+        /* --- HERO SECTION --- */
+        .hero { 
+            padding: 120px 20px; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            text-align: center; 
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--gray-light);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid var(--gray-border);
+        }
+
+        .hero h1 { 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            letter-spacing: -1.5px; 
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, #000 0%, #444 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- HERO SECTION --- */
-        .hero { 
-            height: 85vh; display: flex; align-items: center; justify-content: center; 
-            text-align: center; position: relative;
-        }
-        
-        /* The cursor effect for typing */
-        .cursor { display: inline-block; width: 3px; background-color: var(--neon-blue); animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        .hero h1 { 
-            font-size: 4rem; margin-bottom: 20px; line-height: 1.1; font-weight: 800;
-            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
-        }
-        
         .hero p { 
-            font-size: 1.3rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 40px; 
+            font-size: 1.25rem; 
+            color: var(--text-secondary); 
+            max-width: 600px; 
+            margin: 0 auto 40px; 
         }
 
-        /* --- NEON BUTTON --- */
-        .btn-neon {
-            padding: 15px 40px;
-            background: transparent;
-            border: 1px solid var(--neon-blue);
-            color: var(--neon-blue);
-            font-weight: 700;
+        .btn-primary {
+            display: inline-block;
+            background: var(--dark);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
             text-decoration: none;
-            border-radius: 5px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.3s;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
-            position: relative;
-            overflow: hidden;
+            transition: transform 0.2s, background 0.2s;
         }
-        
-        .btn-neon:hover {
-            background: var(--neon-blue);
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #333;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        /* --- GLASS CARDS --- */
-        .services { padding: 100px 0; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        
-        .glass-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 40px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px); /* The Blur Effect */
-            transition: 0.4s;
+        /* --- CARDS SECTION --- */
+        .features {
+            max-width: 1100px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
         }
 
-        .glass-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--neon-purple);
-            box-shadow: 0 10px 30px rgba(188, 19, 254, 0.2);
+        .card {
+            background: white;
+            border: 1px solid var(--gray-border);
+            padding: 32px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
         }
-        
-        .glass-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #fff; }
-        .glass-card p { color: var(--text-dim); line-height: 1.6; }
+
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .card h3 { font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; }
+        .card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
 
         /* --- FOOTER --- */
         footer { 
-            text-align: center; padding: 40px; 
-            border-top: 1px solid var(--glass-border); 
-            color: var(--text-dim);
-            font-size: 0.9rem;
+            border-top: 1px solid var(--gray-border);
+            padding: 40px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            background: var(--gray-light);
         }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
-            .orb { opacity: 0.2; }
+            nav { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-animation">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-    </div>
+    <div class="grid-bg"></div>
 
-    <nav class="container">
-        <div class="logo">META<span style="font-weight:300">NEXUS</span></div>
-        <a href="mailto:metanexus77@gmail.com" style="color:white; text-decoration:none; font-size:0.9rem; opacity:0.8;">metanexus77@gmail.com</a>
+    <nav>
+        <div class="logo">MetaNexus</div>
+        <a href="mailto:metanexus77@gmail.com" class="contact-link">metanexus77@gmail.com</a>
     </nav>
 
-    <section class="hero container">
-        <div>
-            <h1>We Build <span id="typewriter"></span><span class="cursor">&nbsp;</span></h1>
-            <p>Intelligent architecture for the next generation of digital trade.</p>
-            <a href="#services" class="btn-neon">Initialize</a>
-        </div>
+    <section class="hero">
+        <span class="tag">EST. 2026</span>
+        <h1>Infrastructure for the<br>Digital Economy.</h1>
+        <p>MetaNexus Private Limited builds high-performance trading platforms and secure database architecture for the modern web.</p>
+        <a href="mailto:metanexus77@gmail.com" class="btn-primary">Start a Project</a>
     </section>
 
-    <section id="services" class="services">
-        <div class="container">
-            <div class="grid">
-                <div class="glass-card">
-                    <h3>⚡ High-Velocity Apps</h3>
-                    <p>React & Python systems designed for millisecond latency and extreme scale.</p>
-                </div>
-                <div class="glass-card">
-                    <h3>💎 Oracle Architecture</h3>
-                    <p>Enterprise-grade database design. Secure, robust, and infinitely scalable.</p>
-                </div>
-                <div class="glass-card">
-                    <h3>🔮 AI Integration</h3>
-                    <p>Automated market intelligence and predictive algorithms baked into your core.</p>
-                </div>
-            </div>
+    <section class="features">
+        <div class="card">
+            <h3>Enterprise Architecture</h3>
+            <p>We design Oracle-based systems capable of handling millions of transactions with zero downtime.</p>
+        </div>
+        <div class="card">
+            <h3>Modern Frontend</h3>
+            <p>Developing blazing fast interfaces using React and Next.js that convert visitors into users.</p>
+        </div>
+        <div class="card">
+            <h3>Secure Data</h3>
+            <p>Industry-standard encryption and data handling protocols to keep your business assets safe.</p>
         </div>
     </section>
 
     <footer>
         &copy; 2026 MetaNexus Private Limited. All rights reserved.
     </footer>
-
-    <script>
-        // Simple Typewriter Effect Script
-        const textToType = ["The Future.", "Scalability.", "Intelligence."];
-        let arrayIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typeSpeed = 100;
-        const eraseSpeed = 50;
-        const delayBetween = 2000;
-        
-        const typeWriterElement = document.getElementById('typewriter');
-
-        function type() {
-            const currentWord = textToType[arrayIndex];
-            
-            if (isDeleting) {
-                typeWriterElement.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typeWriterElement.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            if (!isDeleting && charIndex === currentWord.length) {
-                isDeleting = true;
-                setTimeout(type, delayBetween);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                arrayIndex = (arrayIndex + 1) % textToType.length;
-                setTimeout(type, 500);
-            } else {
-                setTimeout(type, isDeleting ? eraseSpeed : typeSpeed);
-            }
-        }
-
-        // Start the effect when page loads
-        document.addEventListener('DOMContentLoaded', type);
-    </script>
 
 </body>
 </html>
