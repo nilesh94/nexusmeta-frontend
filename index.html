@@ -3,194 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MetaNexus | Enterprise Solutions</title>
+    <title>MetaNexus | Intelligent Enterprise Systems</title>
     <style>
         :root {
-            --primary: #0047FF; /* International Tech Blue */
-            --dark: #0a0a0a;
-            --gray-light: #f5f5f7;
-            --gray-border: #e1e1e6;
-            --text-main: #1d1d1f;
-            --text-secondary: #86868b;
+            /* Palette inspired by the video */
+            --bg-light: #F4F6F8;
+            --bg-white: #FFFFFF;
+            --primary-dark: #111827; /* Dark Slate */
+            --accent-green: #10B981; /* Mint Green */
+            --text-main: #1F2937;
+            --text-gray: #6B7280;
+            --border-light: #E5E7EB;
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
         
         body { 
-            background-color: #ffffff; 
+            background-color: var(--bg-light); 
             color: var(--text-main); 
-            line-height: 1.5;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* --- TECH GRID BACKGROUND --- */
-        .grid-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(var(--gray-border) 1px, transparent 1px),
-                linear-gradient(90deg, var(--gray-border) 1px, transparent 1px);
-            background-size: 40px 40px;
-            opacity: 0.3;
-            z-index: -1;
-            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        /* --- LOADER --- */
+        .loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-light);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000;
+            animation: fadeOut 0.5s ease-out 2s forwards;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid var(--border-light);
+            border-top: 5px solid var(--primary-dark);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
-        /* --- NAVIGATION --- */
-        nav { 
-            padding: 20px 40px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 1px solid var(--gray-border);
-            background: rgba(255, 255, 255, 0.8);
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+        /* --- NAV --- */
+        nav {
+            padding: 20px 40px;
+            background: rgba(255,255,255,0.9);
             backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center;
             position: sticky; top: 0; z-index: 100;
+            border-bottom: 1px solid var(--border-light);
         }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-dark); display: flex; align-items: center; gap: 10px; }
+        .logo-mark { width: 30px; height: 30px; background: var(--primary-dark); border-radius: 6px; position: relative; }
+        .logo-mark::after { content: ''; position: absolute; top: 8px; left: 8px; width: 14px; height: 14px; background: var(--accent-green); border-radius: 50%; }
         
-        .logo { 
-            font-size: 1.25rem; font-weight: 700; color: var(--dark); letter-spacing: -0.5px; 
-            display: flex; align-items: center; gap: 8px;
+        .btn-nav {
+            background: var(--primary-dark); color: white; padding: 10px 24px;
+            border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.9rem;
+            transition: transform 0.2s;
         }
-        
-        .logo::before {
-            content: ''; display: block; width: 12px; height: 12px; background: var(--primary); border-radius: 2px;
-        }
-
-        .contact-link {
-            font-size: 0.9rem; font-weight: 500; color: var(--text-main); text-decoration: none;
-            transition: color 0.2s;
-        }
-        .contact-link:hover { color: var(--primary); }
+        .btn-nav:hover { transform: translateY(-2px); }
 
         /* --- HERO SECTION --- */
-        .hero { 
-            padding: 120px 20px; 
-            max-width: 900px; 
-            margin: 0 auto; 
-            text-align: center; 
+        .hero {
+            padding: 100px 20px 60px;
+            text-align: center;
+            max-width: 1200px; margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem; line-height: 1.1; margin-bottom: 24px; color: var(--primary-dark);
+            opacity: 0; animation: slideUp 0.8s ease-out 2.2s forwards;
+        }
+        .hero p {
+            font-size: 1.25rem; color: var(--text-gray); max-width: 600px; margin: 0 auto 40px;
+            opacity: 0; animation: slideUp 0.8s ease-out 2.4s forwards;
         }
 
-        .tag {
-            display: inline-block;
-            background: var(--gray-light);
-            color: var(--text-secondary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-            border: 1px solid var(--gray-border);
-        }
-
-        .hero h1 { 
-            font-size: 3.5rem; 
-            font-weight: 800; 
-            letter-spacing: -1.5px; 
-            margin-bottom: 24px;
-            background: linear-gradient(180deg, #000 0%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p { 
-            font-size: 1.25rem; 
-            color: var(--text-secondary); 
-            max-width: 600px; 
-            margin: 0 auto 40px; 
-        }
-
+        .hero-buttons { opacity: 0; animation: slideUp 0.8s ease-out 2.6s forwards; }
         .btn-primary {
-            display: inline-block;
-            background: var(--dark);
+            display: inline-block; background: var(--primary-dark); color: white;
+            padding: 16px 40px; border-radius: 50px; text-decoration: none; font-weight: 600;
+            transition: 0.3s; margin-right: 16px;
+        }
+        .btn-secondary {
+            display: inline-block; background: white; color: var(--primary-dark);
+            padding: 16px 40px; border-radius: 50px; text-decoration: none; font-weight: 600;
+            border: 1px solid var(--border-light); transition: 0.3s;
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+
+        /* --- FLOATING STATS GRID (Like Video) --- */
+        .stats-container {
+            display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 80px;
+            opacity: 0; animation: slideUp 0.8s ease-out 2.8s forwards;
+        }
+        
+        .stat-card {
+            background: white; padding: 24px; border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex; align-items: center; gap: 16px; min-width: 200px;
+        }
+        .stat-icon {
+            width: 48px; height: 48px; background: #ECFDF5; color: var(--accent-green);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+        }
+        .stat-text h3 { font-size: 1.5rem; font-weight: 800; color: var(--primary-dark); margin: 0; }
+        .stat-text p { font-size: 0.85rem; color: var(--text-gray); margin: 0; }
+
+        /* --- DARK SERVICES SECTION --- */
+        .services-section {
+            background: var(--primary-dark);
             color: white;
-            padding: 14px 32px;
-            border-radius: 6px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.2s, background 0.2s;
+            padding: 100px 20px;
+            margin-top: 100px;
+            border-radius: 40px 40px 0 0;
         }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            background: #333;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 16px; }
+        
+        .grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; max-width: 1200px; margin: 0 auto;
         }
+        
+        .service-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+        .service-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+        }
+        .service-card h3 { font-size: 1.25rem; margin-bottom: 12px; }
+        .service-card p { color: #9CA3AF; font-size: 0.95rem; }
 
-        /* --- CARDS SECTION --- */
-        .features {
-            max-width: 1100px;
-            margin: 0 auto 100px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+        /* --- FEATURE SECTION --- */
+        .feature-split {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+            max-width: 1200px; margin: 100px auto; padding: 0 20px; align-items: center;
         }
-
-        .card {
-            background: white;
-            border: 1px solid var(--gray-border);
-            padding: 32px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
+        .feature-box {
+            background: white; padding: 40px; border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-light);
         }
-
-        .card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
-            transform: translateY(-4px);
-        }
-
-        .card h3 { font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; }
-        .card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
+        .feature-content h2 { font-size: 2.5rem; margin-bottom: 24px; color: var(--primary-dark); }
+        .feature-list { list-style: none; }
+        .feature-list li { margin-bottom: 16px; display: flex; align-items: center; gap: 12px; color: var(--text-gray); }
+        .check { color: var(--accent-green); font-weight: bold; }
 
         /* --- FOOTER --- */
-        footer { 
-            border-top: 1px solid var(--gray-border);
-            padding: 40px;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            background: var(--gray-light);
+        footer {
+            background: #111; color: #888; padding: 60px 20px; text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-logo { color: white; font-weight: 800; font-size: 1.2rem; margin-bottom: 20px; display: inline-block; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
-            nav { padding: 20px; }
+            .feature-split { grid-template-columns: 1fr; }
+            .stats-container { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-    <div class="grid-bg"></div>
+    <div class="loader">
+        <div class="spinner"></div>
+    </div>
 
     <nav>
-        <div class="logo">MetaNexus</div>
-        <a href="mailto:metanexus77@gmail.com" class="contact-link">metanexus77@gmail.com</a>
+        <div class="logo">
+            <div class="logo-mark"></div>
+            MetaNexus
+        </div>
+        <a href="mailto:metanexus77@gmail.com" class="btn-nav">Contact Us</a>
     </nav>
 
     <section class="hero">
-        <span class="tag">EST. 2026</span>
-        <h1>Infrastructure for the<br>Digital Economy.</h1>
-        <p>MetaNexus Private Limited builds high-performance trading platforms and secure database architecture for the modern web.</p>
-        <a href="mailto:metanexus77@gmail.com" class="btn-primary">Start a Project</a>
+        <h1>The Future of Enterprise<br>Architecture.</h1>
+        <p>Expert technology to elevate your digital infrastructure. We build high-scale Oracle databases and next-gen trading platforms.</p>
+        
+        <div class="hero-buttons">
+            <a href="mailto:metanexus77@gmail.com" class="btn-primary">Start Project</a>
+            <a href="#services" class="btn-secondary">View Solutions</a>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-text">
+                    <h3>99.9%</h3>
+                    <p>Uptime Guarantee</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📈</div>
+                <div class="stat-text">
+                    <h3>50M+</h3>
+                    <p>Daily Transactions</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🛡️</div>
+                <div class="stat-text">
+                    <h3>100%</h3>
+                    <p>Secure Data</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="features">
-        <div class="card">
-            <h3>Enterprise Architecture</h3>
-            <p>We design Oracle-based systems capable of handling millions of transactions with zero downtime.</p>
+    <section id="services" class="services-section">
+        <div class="section-header">
+            <h2>Efficient & Integrated<br>Digital Services</h2>
+            <p style="color: #9CA3AF;">Simplifying operations with efficient, quality-focused architecture.</p>
         </div>
-        <div class="card">
-            <h3>Modern Frontend</h3>
-            <p>Developing blazing fast interfaces using React and Next.js that convert visitors into users.</p>
+
+        <div class="grid">
+            <div class="service-card">
+                <h3>⚛️ React Frontend</h3>
+                <p>Blazing fast user interfaces built with React and Next.js for maximum conversion and speed.</p>
+            </div>
+            <div class="service-card">
+                <h3>🗄️ Oracle Database</h3>
+                <p>Complex schema design, PL/SQL optimization, and secure storage for high-value data.</p>
+            </div>
+            <div class="service-card">
+                <h3>📊 Market Intelligence</h3>
+                <p>Real-time data pipelines and analytics dashboards to visualize your business growth.</p>
+            </div>
         </div>
-        <div class="card">
-            <h3>Secure Data</h3>
-            <p>Industry-standard encryption and data handling protocols to keep your business assets safe.</p>
+    </section>
+
+    <section class="feature-split">
+        <div class="feature-box">
+            <div style="background: #F3F4F6; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <div style="height: 10px; width: 60%; background: #E5E7EB; border-radius: 10px; margin-bottom: 10px;"></div>
+                <div style="height: 10px; width: 40%; background: #E5E7EB; border-radius: 10px;"></div>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <div style="background: #ECFDF5; height: 80px; width: 100%; border-radius: 12px;"></div>
+                <div style="background: #F3F4F6; height: 80px; width: 100%; border-radius: 12px;"></div>
+            </div>
+        </div>
+        
+        <div class="feature-content">
+            <h2>From Idea to Production<br>in Days, Not Months.</h2>
+            <p style="color: #6B7280; margin-bottom: 20px;">Accelerate your development with our proven technology stack. We reduce downtime and optimize costs.</p>
+            <ul class="feature-list">
+                <li><span class="check">✓</span> Custom Manufacturing of Code</li>
+                <li><span class="check">✓</span> 24/7 Enterprise Support</li>
+                <li><span class="check">✓</span> Predictive Optimization</li>
+            </ul>
         </div>
     </section>
 
     <footer>
-        &copy; 2026 MetaNexus Private Limited. All rights reserved.
+        <span class="footer-logo">MetaNexus</span>
+        <p>&copy; 2026 MetaNexus Private Limited. All rights reserved.</p>
+        <p style="margin-top: 10px; opacity: 0.5;">Hyderabad, India | metanexus77@gmail.com</p>
     </footer>
 
 </body>
