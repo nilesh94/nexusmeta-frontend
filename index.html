@@ -3,109 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusMeta | Intelligent Digital Solutions</title>
+    <title>NexusMeta | Future Systems</title>
     <style>
+        /* --- FUTURISTIC VARIABLES --- */
         :root {
-            --primary: #2563eb;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --text-gray: #94a3b8;
+            --bg-dark: #050510;
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #a0a0b0;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
         
-        body { background-color: var(--dark); color: var(--light); line-height: 1.6; }
-        
-        /* Container */
+        body { 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
+            overflow-x: hidden;
+        }
+
+        /* --- DYNAMIC BACKGROUND ANIMATION --- */
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #1a1a3a 0%, #050510 100%);
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 10s infinite ease-in-out;
+        }
+        .orb-1 { width: 300px; height: 300px; background: var(--neon-purple); top: -50px; left: -50px; animation-delay: 0s; }
+        .orb-2 { width: 400px; height: 400px; background: var(--neon-blue); bottom: -100px; right: -100px; animation-delay: 5s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 50px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        /* --- GLASSMORPHISM UI --- */
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
         
-        /* Header/Nav */
-        nav { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 700; color: white; letter-spacing: -1px; }
-        .logo span { color: var(--primary); }
+        nav { 
+            padding: 25px 0; 
+            display: flex; justify-content: space-between; align-items: center; 
+            backdrop-filter: blur(5px);
+        }
         
-        /* Hero Section */
-        .hero { height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.1; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { font-size: 1.25rem; color: var(--text-gray); max-width: 600px; margin: 0 auto 30px; }
-        .btn { display: inline-block; padding: 12px 30px; background: var(--primary); color: white; text-decoration: none; border-radius: 5px; font-weight: 600; transition: transform 0.2s; }
-        .btn:hover { transform: translateY(-2px); }
+        .logo { 
+            font-size: 1.8rem; font-weight: 800; letter-spacing: 1px;
+            background: linear-gradient(to right, #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        /* Services Section */
-        .services { padding: 80px 0; background: #1e293b; }
-        .section-title { text-align: center; margin-bottom: 50px; font-size: 2rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .card { background: var(--dark); padding: 30px; border-radius: 10px; border: 1px solid #334155; transition: border-color 0.3s; }
-        .card:hover { border-color: var(--primary); }
-        .card h3 { margin-bottom: 15px; font-size: 1.25rem; }
-        .card p { color: var(--text-gray); font-size: 0.95rem; }
+        /* --- HERO SECTION --- */
+        .hero { 
+            height: 85vh; display: flex; align-items: center; justify-content: center; 
+            text-align: center; position: relative;
+        }
+        
+        /* The cursor effect for typing */
+        .cursor { display: inline-block; width: 3px; background-color: var(--neon-blue); animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        /* Contact Section */
-        .contact { padding: 80px 0; text-align: center; }
-        .contact-box { background: linear-gradient(145deg, #1e293b, #0f172a); padding: 40px; border-radius: 15px; display: inline-block; width: 100%; max-width: 600px; border: 1px solid #334155; }
-        .contact-item { margin: 15px 0; font-size: 1.1rem; }
-        .contact-item strong { color: var(--primary); }
+        .hero h1 { 
+            font-size: 4rem; margin-bottom: 20px; line-height: 1.1; font-weight: 800;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+        
+        .hero p { 
+            font-size: 1.3rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 40px; 
+        }
 
-        /* Footer */
-        footer { text-align: center; padding: 20px; color: #475569; font-size: 0.9rem; border-top: 1px solid #1e293b; }
+        /* --- NEON BUTTON --- */
+        .btn-neon {
+            padding: 15px 40px;
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-neon:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+        }
+
+        /* --- GLASS CARDS --- */
+        .services { padding: 100px 0; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px); /* The Blur Effect */
+            transition: 0.4s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 10px 30px rgba(188, 19, 254, 0.2);
+        }
+        
+        .glass-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #fff; }
+        .glass-card p { color: var(--text-dim); line-height: 1.6; }
+
+        /* --- FOOTER --- */
+        footer { 
+            text-align: center; padding: 40px; 
+            border-top: 1px solid var(--glass-border); 
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
+            .orb { opacity: 0.2; }
         }
     </style>
 </head>
 <body>
 
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
     <nav class="container">
-        <div class="logo">Nexus<span>Meta</span></div>
-        <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Contact Us</a>
+        <div class="logo">NEXUS<span style="font-weight:300">META</span></div>
+        <a href="metanexus77@gmail.com" style="color:white; text-decoration:none; font-size:0.9rem; opacity:0.8;">metanexus77@gmail.com</a>
     </nav>
 
     <section class="hero container">
         <div>
-            <h1>Building the Future <br> of Intelligent Systems.</h1>
-            <p>We craft high-performance web platforms, enterprise solutions, and data-driven applications.</p>
-            <a href="#services" class="btn">What We Do</a>
+            <h1>We Build <span id="typewriter"></span><span class="cursor">&nbsp;</span></h1>
+            <p>Intelligent architecture for the next generation of digital trade.</p>
+            <a href="#services" class="btn-neon">Initialize</a>
         </div>
     </section>
 
     <section id="services" class="services">
         <div class="container">
-            <h2 class="section-title">Our Expertise</h2>
             <div class="grid">
-                <div class="card">
-                    <h3>🚀 App Development</h3>
-                    <p>Scalable mobile and web applications built with modern frameworks like React and Python.</p>
+                <div class="glass-card">
+                    <h3>⚡ High-Velocity Apps</h3>
+                    <p>React & Python systems designed for millisecond latency and extreme scale.</p>
                 </div>
-                <div class="card">
-                    <h3>📊 Data & Analytics</h3>
-                    <p>Turning raw data into actionable insights with advanced database architecture and reporting.</p>
+                <div class="glass-card">
+                    <h3>💎 Oracle Architecture</h3>
+                    <p>Enterprise-grade database design. Secure, robust, and infinitely scalable.</p>
                 </div>
-                <div class="card">
-                    <h3>☁️ Cloud Solutions</h3>
-                    <p>Secure, reliable cloud infrastructure setup and management for growing businesses.</p>
+                <div class="glass-card">
+                    <h3>🔮 AI Integration</h3>
+                    <p>Automated market intelligence and predictive algorithms baked into your core.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact container">
-        <div class="contact-box">
-            <h2 class="section-title" style="margin-bottom: 20px;">Get in Touch</h2>
-            <p style="margin-bottom: 30px; color: var(--text-gray);">Ready to start your next project? Reach out to us directly.</p>
-            
-            <div class="contact-item">
-                <strong>Email:</strong> contact@nexusmeta.in
-            </div>
-            <div class="contact-item">
-                <strong>Location:</strong> Hyderabad, India
             </div>
         </div>
     </section>
 
     <footer>
-        &copy; 2026 NexusMeta Solutions. All rights reserved.
+        &copy; 2026 NexusMeta Solutions. Systems Online.
     </footer>
+
+    <script>
+        // Simple Typewriter Effect Script
+        const textToType = ["The Future.", "Scalability.", "Intelligence."];
+        let arrayIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeSpeed = 100;
+        const eraseSpeed = 50;
+        const delayBetween = 2000;
+        
+        const typeWriterElement = document.getElementById('typewriter');
+
+        function type() {
+            const currentWord = textToType[arrayIndex];
+            
+            if (isDeleting) {
+                typeWriterElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typeWriterElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(type, delayBetween);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                arrayIndex = (arrayIndex + 1) % textToType.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? eraseSpeed : typeSpeed);
+            }
+        }
+
+        // Start the effect when page loads
+        document.addEventListener('DOMContentLoaded', type);
+    </script>
 
 </body>
 </html>
