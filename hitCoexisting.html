@@ -1,33 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrapcy WhatsApp Coexistence Link</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #f0f2f5; }
+        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+        button { background-color: #1877f2; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #166fe5; }
+        #status { margin-top: 20px; color: #65676b; font-size: 14px; }
+    </style>
+</head>
 <body>
-    <h2>Link Scrapcy WhatsApp Coexistence</h2>
+
+<div class="card">
+    <h2>Connect Scrapcy AI</h2>
+    <p>Mirror your Business Phone to n8n via Coexistence</p>
     <button onclick="launchWhatsAppSignup()">Link My Business Phone</button>
+    <div id="status">Ready to link...</div>
+</div>
 
-    <script>
-      window.fbAsyncInit = function() {
+<script>
+    // 1. Initialize the SDK
+    window.fbAsyncInit = function() {
         FB.init({
-          appId      : '682848498127393', // Put your App ID here
-          cookie     : true,
-          xfbml      : true,
-          version    : 'v21.0'
+            appId      : '682848498127393', // Your specific App ID
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v21.0'
         });
-      };
+    };
 
-      function launchWhatsAppSignup() {
+    // 2. The Message Listener - This is the missing piece that handles the "handshake"
+    window.addEventListener('message', (event) => {
+        if (event.origin !== "https://www.facebook.com" && event.origin !== "https://web.facebook.com") return;
+        
+        try {
+            const data = JSON.parse(event.data);
+            if (data.type === 'WA_EMBEDDED_SIGNUP') {
+                if (data.event === 'FINISH') {
+                    document.getElementById('status').innerText = "Successfully Linked! Check your Meta Dashboard for the Phone ID.";
+                    console.log('Setup Finished:', data);
+                } else if (data.event === 'CANCEL') {
+                    document.getElementById('status').innerText = "Setup cancelled by user.";
+                }
+            }
+        } catch (e) {
+            // Ignore non-JSON messages
+        }
+    });
+
+    // 3. The Launch Function
+    function launchWhatsAppSignup() {
+        document.getElementById('status').innerText = "Opening Meta secure window...";
+        
         FB.login(function(response) {
-          if (response.authResponse) {
-            console.log('Successfully linked. Capture the WABA ID from the Meta Dashboard.');
-          }
+            if (response.authResponse) {
+                document.getElementById('status').innerText = "Authenticated. Follow instructions in the popup.";
+            } else {
+                document.getElementById('status').innerText = "Login failed or cancelled.";
+            }
         }, {
-          scope: 'whatsapp_business_management,whatsapp_business_messaging',
-          extras: {
-            // This is the magic flag for Coexistence
-            "feature": "whatsapp_embedded_signup_coexistence" 
-          }
+            scope: 'whatsapp_business_management,whatsapp_business_messaging',
+            extras: {
+                // REQUIRED: This enables the "Link Existing App" QR code flow
+                "feature": "whatsapp_embedded_signup_coexistence",
+                "setup": {
+                    "business": {
+                        "name": "Scrapcy"
+                    }
+                }
+            }
         });
-      }
-    </script>
-    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+    }
+</script>
+
+<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+
 </body>
 </html>
