@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Link Scrapcy WhatsApp Coexistence</h2>
+    <button onclick="launchWhatsAppSignup()">Link My Business Phone</button>
+
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : 998751496644179, // Put your App ID here
+          cookie     : true,
+          xfbml      : true,
+          version    : 'v21.0'
+        });
+      };
+
+      function launchWhatsAppSignup() {
+        FB.login(function(response) {
+          if (response.authResponse) {
+            console.log('Successfully linked. Capture the WABA ID from the Meta Dashboard.');
+          }
+        }, {
+          scope: 'whatsapp_business_management,whatsapp_business_messaging',
+          extras: {
+            // This is the magic flag for Coexistence
+            "feature": "whatsapp_embedded_signup_coexistence" 
+          }
+        });
+      }
+    </script>
+    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+</body>
+</html>
